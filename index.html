@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoCapsule - Zaman Yolcusu Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="dashboard-container">
+        
+        <!-- Sidebar Menu Elements -->
+        <nav class="sidebar glass-panel">
+            <div class="brand">
+                <h1>Zaman</h1>
+                <h2>Yolcusu</h2>
+            </div>
+            
+            <button class="primary-btn pulse-hover" id="recordBtn">
+                <i class="fa-solid fa-microphone"></i>
+                <span>Yeni Hatıra Bırak</span>
+            </button>
+
+            <div class="list-container">
+                <h3 class="list-title">Hatıralarım</h3>
+                <div class="capsules-list" id="capsulesList">
+                    <!-- Capsules injected here -->
+                </div>
+            </div>
+
+            <div class="simulation-tools">
+                <h4>Simülasyon</h4>
+                <button class="sim-btn" id="simDiscoverBtn"><i class="fa-solid fa-radar"></i> Kapsül Bul</button>
+                <button class="sim-btn outline" id="simClearBtn"><i class="fa-solid fa-trash"></i> Verileri Temizle</button>
+            </div>
+            
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff" alt="User">
+                <div class="info">
+                    <span class="name">Echo Gezgini</span>
+                    <span class="status" id="locationStatus"><i class="fa-solid fa-earth-americas"></i> Konum Bekleniyor</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Environment / Radar Map -->
+        <section class="environment-map">
+            <div class="map-overlay-text">
+                <i class="fa-solid fa-location-crosshairs"></i> Çevre Taranıyor...
+            </div>
+            
+            <div class="super-radar" id="radarContainer">
+                <div class="grid-lines"></div>
+                <div class="radar-circle rc-1"></div>
+                <div class="radar-circle rc-2"></div>
+                <div class="radar-circle rc-3"></div>
+                <div class="radar-circle rc-4"></div>
+                <div class="radar-sweep-lg"></div>
+
+                <div class="user-dot">
+                    <div class="pulse"></div>
+                </div>
+                <!-- Dynamic Pins injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RECORD OVERLAY MODAL -->
+    <div class="overlay hidden opacity-hidden" id="recordOverlay">
+        <div class="modal glass-panel-heavy">
+            <button class="close-btn" id="closeRecordBtn"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <i class="fa-solid fa-podcast"></i>
+                <h2>Hatıra Kaydet</h2>
+                <p>Bu konuma sesli veya görsel bir anı mühürleyin.</p>
+            </div>
+            
+            <div class="photo-preview-container hidden" id="photoPreviewContainer">
+                <img id="photoPreview" src="" alt="Önizleme">
+                <button class="remove-photo-btn" id="removePhotoBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="recording-visualizer">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+
+            <div class="timer" id="recordTimer">00:00</div>
+
+            <div class="action-row">
+                <label class="action-btn secondary" for="photoInput">
+                    <i class="fa-solid fa-camera"></i> Fotoğraf
+                </label>
+                <input type="file" id="photoInput" accept="image/*" class="hidden">
+
+                <button class="action-btn primary" id="actionRecordBtn">
+                    <i class="fa-solid fa-microphone"></i> Kayıt
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISCOVERY OVERLAY MODAL -->
+    <div class="overlay hidden opacity-hidden cinematic" id="discoveryOverlay">
+        <div class="particles"></div>
+        <div class="discovery-modal">
+            
+            <div class="memory-card glass-panel-heavy">
+                <div class="discovery-header">
+                    <div class="tag"><i class="fa-solid fa-star"></i> Zaman Kapsülü Keşfedildi</div>
+                    <button class="close-discovery" id="closeDiscoveryBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="photo-zone">
+                    <img id="discoveryPhoto" src="" alt="Hatıra" class="hidden">
+                </div>
+                
+                <h1 class="discovery-title">Anılara Döndünüz</h1>
+                <p class="discovery-text" id="discoveryText">Bu mekanda senin için saklanmış bir hatıra var.</p>
+
+                <div class="player-controls">
+                    <button class="play-btn" id="playDiscoveredBtn">
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+                    <div class="waveform-mock"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
