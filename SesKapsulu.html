@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ses Kapsülü - Dijital Zaman Yolculuğu</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+:root {
+    --bg-dark: #020617;
+    --bg-grad-1: #0f172a;
+    --bg-grad-2: #1e1b4b;
+    --accent-primary: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.5);
+    --accent-secondary: #ec4899;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --glass-bg: rgba(30, 41, 59, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+/* Ambient Background */
+.ambient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(circle at center, var(--bg-grad-1) 0%, var(--bg-dark) 100%);
+}
+
+.glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: drift 20s infinite alternate;
+}
+
+.glow-1 {
+    width: 40vw;
+    height: 40vw;
+    background: var(--accent-primary);
+    top: -10%;
+    left: -10%;
+}
+
+.glow-2 {
+    width: 30vw;
+    height: 30vw;
+    background: var(--accent-secondary);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -10s;
+}
+
+@keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(10vw, 10vh) scale(1.2); }
+}
+
+/* App Container */
+.app-container {
+    width: 100%;
+    max-width: 414px; 
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    z-index: 1;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.app-header h1 {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1;
+}
+
+.app-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(to right, #fff, var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+
+.profile-icon img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Radar */
+.radar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.radar-container {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background: rgba(30, 41, 59, 0.2);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.radar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.rim-1 { width: 100%; height: 100%; }
+.rim-2 { width: 66%; height: 66%; }
+.rim-3 { width: 33%; height: 33%; }
+
+.radar-sweep {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0% 0%;
+    background: conic-gradient(from 0deg, transparent 70%, rgba(99, 102, 241, 0.8) 100%);
+    animation: sweep 4s linear infinite;
+    border-radius: 100% 0 0 0;
+    pointer-events: none;
+}
+
+@keyframes sweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.user-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-primary);
+    z-index: 2;
+}
+
+.user-dot .pulse {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    animation: dotPulse 2s ease-out infinite;
+    z-index: -1;
+}
+
+@keyframes dotPulse {
+    0% { transform: scale(0.5); opacity: 0.8; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.capsule-pin {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--accent-secondary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--accent-secondary);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.status-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Capsules List */
+.list-section {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 100px; 
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+.list-section::-webkit-scrollbar { 
+    display: none; 
+}
+
+.list-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.capsules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.capsule-item {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.capsule-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(236, 72, 153, 0.1);
+    color: var(--accent-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.capsule-icon.has-photo {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+}
+
+.capsule-info {
+    flex: 1;
+}
+
+.capsule-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.capsule-meta {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: 20px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+    border: 1px dashed var(--glass-border);
+}
+
+/* Record FAB */
+.record-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-primary), #818cf8);
+    border: none;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px var(--accent-glow);
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+/* Overlays */
+.overlay, .discovery-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.opacity-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.record-modal {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(0);
+    transition: transform 0.4s;
+}
+
+.opacity-hidden .record-modal {
+    transform: translateY(100%);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.modal-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+/* Photo feature */
+.photo-preview-container {
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.photo-preview-container img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid var(--accent-secondary);
+}
+
+.remove-photo-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.action-buttons-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.camera-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.camera-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.timer {
+    font-size: 48px;
+    font-weight: 300;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 24px;
+    margin-top: 10px;
+}
+
+.recording-visualizer {
+    display: flex;
+    gap: 6px;
+    height: 40px;
+    align-items: center;
+    margin-bottom: 10px;
+    opacity: 0; 
+    transition: opacity 0.3s;
+}
+
+.recording-visualizer.active {
+    opacity: 1;
+}
+
+.recording-visualizer .bar {
+    width: 6px;
+    height: 10px;
+    background: var(--accent-secondary);
+    border-radius: 10px;
+}
+
+.recording-visualizer.active .bar {
+    animation: soundBars 0.8s ease-in-out infinite alternate;
+}
+
+.recording-visualizer .bar:nth-child(2) { animation-delay: 0.1s; }
+.recording-visualizer .bar:nth-child(3) { animation-delay: 0.3s; }
+.recording-visualizer .bar:nth-child(4) { animation-delay: 0.2s; }
+.recording-visualizer .bar:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes soundBars {
+    0% { height: 10px; }
+    100% { height: 40px; }
+}
+
+.action-btn.start-record {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--accent-secondary);
+    border: none;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4);
+    transition: all 0.3s;
+}
+
+.action-btn.recording {
+    background: transparent;
+    border: 3px solid var(--accent-secondary);
+    color: var(--accent-secondary);
+    animation: recordPulse 1.5s infinite;
+}
+
+.action-btn.recording i::before {
+    content: "\f04d"; 
+}
+
+@keyframes recordPulse {
+    0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(236, 72, 153, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+}
+
+/* Discovery Overlay - Full Screen */
+.discovery-overlay {
+    align-items: center; 
+    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 0.98) 100%);
+}
+
+.discovery-content {
+    width: 90%;
+    max-width: 360px;
+    padding: 30px 24px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.5s;
+    max-height: 90vh; /* make sure it doesn't overflow mobile */
+    overflow-y: auto;
+}
+
+.opacity-hidden:not(.hidden) .discovery-content {
+    transform: scale(1);
+}
+
+.headphone-icon {
+    font-size: 50px;
+    color: var(--accent-primary);
+    margin-bottom: 16px;
+    animation: float 3s ease-in-out infinite;
+    text-shadow: 0 0 20px var(--accent-glow);
+}
+
+.discovery-photo {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--glass-border);
+}
+
+.discovery-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.discovery-text {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.audio-player-mock {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(0,0,0,0.3);
+    padding: 16px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+}
+
+.play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    border: none;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 4px; 
+}
+
+.play-btn.playing {
+    padding-left: 0;
+}
+
+.play-btn.playing i::before {
+    content: "\f04c"; 
+}
+
+.waveform {
+    flex: 1;
+    height: 24px;
+    background: repeating-linear-gradient(90deg, var(--text-secondary) 0px, var(--text-secondary) 3px, transparent 3px, transparent 6px);
+    opacity: 0.5;
+    border-radius: 12px;
+}
+
+.play-btn.playing + .waveform {
+    opacity: 1;
+    background: repeating-linear-gradient(90deg, var(--accent-primary) 0px, var(--accent-primary) 3px, transparent 3px, transparent 6px);
+}
+
+.close-discovery {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.simulation-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 15px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0,0,0,0.7);
+    border-color: rgba(255,0,0,0.3);
+}
+
+.simulation-panel h4 {
+    color: #ffb7b7;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.sim-btn {
+    padding: 8px 12px;
+    background: #475569;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+}
+.sim-btn.outline { background: transparent; border: 1px solid #475569; }
+    </style>
+</head>
+<body>
+    
+    <div class="ambient-bg">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <div class="app-container">
+        
+        <header class="app-header">
+            <div>
+                <h1>Zaman</h1>
+                <h2>Yolcusu</h2>
+            </div>
+            <div class="profile-icon">
+                <img src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff&rounded=true" alt="User">
+            </div>
+        </header>
+
+        <section class="radar-section">
+            <div class="radar-container" id="radarContainer">
+                <div class="radar-ring rim-1"></div>
+                <div class="radar-ring rim-2"></div>
+                <div class="radar-ring rim-3"></div>
+                <div class="radar-sweep"></div>
+                
+                <div class="user-dot">
+                    <div class="pulse"></div>
+                </div>
+            </div>
+            <div class="status-text">
+                <i class="fa-solid fa-location-crosshairs"></i> Yakınındaki hatıralar taranıyor...
+            </div>
+        </section>
+
+        <section class="list-section">
+            <h3 class="list-title">Hatıralarım</h3>
+            <div class="capsules-list" id="capsulesList"></div>
+        </section>
+
+        <button class="record-btn glass-btn" id="recordBtn">
+            <i class="fa-solid fa-microphone"></i>
+        </button>
+
+    </div>
+
+    <!-- RECORD OVERLAY -->
+    <div class="overlay opacity-hidden hidden" id="recordOverlay">
+        <div class="record-modal glass-panel">
+            <button class="close-btn" id="closeRecordBtn"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="modal-title">Bu ana bir ses bırak</h2>
+            <p class="modal-subtitle">veya görsel bir anı ekle</p>
+            
+            <!-- Photo Preview -->
+            <div class="photo-preview-container hidden" id="photoPreviewContainer">
+                <img id="photoPreview" src="" alt="Önizleme">
+                <button class="remove-photo-btn" id="removePhotoBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="recording-visualizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <div class="timer" id="recordTimer">00:00</div>
+
+            <div class="action-buttons-row">
+                <!-- Camera Button -->
+                <label class="camera-btn" for="photoInput">
+                    <i class="fa-solid fa-camera"></i>
+                </label>
+                <input type="file" id="photoInput" accept="image/*" capture="environment" class="hidden">
+
+                <!-- Mic Button -->
+                <button class="action-btn start-record" id="actionRecordBtn">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISCOVERY OVERLAY -->
+    <div class="discovery-overlay opacity-hidden hidden" id="discoveryOverlay">
+        <div class="discovery-content glass-panel">
+            <div class="headphone-icon">
+                <i class="fa-solid fa-headphones-simple"></i>
+            </div>
+            <h1 class="discovery-title">Bir Anı Bulundu!</h1>
+            
+            <img id="discoveryPhoto" src="" alt="Hatıra" class="discovery-photo hidden">
+
+            <p class="discovery-text" id="discoveryText">Bu mekanda senin için saklanmış bir anı var.</p>
+            
+            <div class="audio-player-mock">
+                <button class="play-btn" id="playDiscoveredBtn">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+                <div class="waveform"></div>
+            </div>
+
+            <button class="close-discovery" id="closeDiscoveryBtn">Daha sonra dinle</button>
+        </div>
+    </div>
+
+    <!-- SIMULATION PANEL -->
+    <div class="simulation-panel glass-panel">
+        <h4>Dev/Test Paneli</h4>
+        <button id="simDiscoverBtn" class="sim-btn">En Son Kapsülü Bul</button>
+        <button id="simClearBtn" class="sim-btn outline">Verileri Temizle</button>
+    </div>
+
+    <script>
+let capsules = JSON.parse(localStorage.getItem('echoCapsules')) || [];
+let isRecording = false;
+let recordInterval;
+let recordTime = 0;
+let userLocation = null;
+let currentPhotoBase64 = null;
+
+// DOM
+const radarContainer = document.getElementById('radarContainer');
+const capsulesList = document.getElementById('capsulesList');
+
+const recordBtn = document.getElementById('recordBtn');
+const recordOverlay = document.getElementById('recordOverlay');
+const closeRecordBtn = document.getElementById('closeRecordBtn');
+const actionRecordBtn = document.getElementById('actionRecordBtn');
+const recordTimer = document.getElementById('recordTimer');
+const recordingVisualizer = document.querySelector('.recording-visualizer');
+
+const photoInput = document.getElementById('photoInput');
+const photoPreviewContainer = document.getElementById('photoPreviewContainer');
+const photoPreview = document.getElementById('photoPreview');
+const removePhotoBtn = document.getElementById('removePhotoBtn');
+
+const discoveryOverlay = document.getElementById('discoveryOverlay');
+const closeDiscoveryBtn = document.getElementById('closeDiscoveryBtn');
+const playDiscoveredBtn = document.getElementById('playDiscoveredBtn');
+const discoveryPhoto = document.getElementById('discoveryPhoto');
+const discoveryText = document.getElementById('discoveryText');
+
+const simDiscoverBtn = document.getElementById('simDiscoverBtn');
+const simClearBtn = document.getElementById('simClearBtn');
+
+function init() {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+            renderRadarPins();
+        }, () => {
+            userLocation = { lat: 41.0082, lng: 28.9784 };
+            renderRadarPins();
+        });
+    } else {
+        userLocation = { lat: 41.0082, lng: 28.9784 };
+        renderRadarPins();
+    }
+    renderCapsulesList();
+}
+
+// Modal handling
+function showModal(elem) {
+    elem.classList.remove('hidden');
+    // small delay for css transition
+    setTimeout(() => elem.classList.remove('opacity-hidden'), 10);
+}
+function hideModal(elem) {
+    elem.classList.add('opacity-hidden');
+    setTimeout(() => elem.classList.add('hidden'), 400); // 400ms is our CSS transition time
+}
+
+// Photo Input
+photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            currentPhotoBase64 = event.target.result;
+            photoPreview.src = currentPhotoBase64;
+            photoPreviewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+removePhotoBtn.addEventListener('click', () => {
+    currentPhotoBase64 = null;
+    photoPreview.src = '';
+    photoInput.value = '';
+    photoPreviewContainer.classList.add('hidden');
+});
+
+// Record Logic
+recordBtn.addEventListener('click', () => {
+    showModal(recordOverlay);
+    resetRecorder();
+});
+
+closeRecordBtn.addEventListener('click', () => {
+    hideModal(recordOverlay);
+    stopRecording();
+});
+
+actionRecordBtn.addEventListener('click', () => {
+    if (!isRecording) startRecording();
+    else finishRecording();
+});
+
+function startRecording() {
+    isRecording = true;
+    actionRecordBtn.classList.add('recording');
+    recordingVisualizer.classList.add('active');
+    
+    recordTime = 0;
+    recordTimer.innerText = "00:00";
+    
+    recordInterval = setInterval(() => {
+        recordTime++;
+        let m = Math.floor(recordTime / 60).toString().padStart(2, '0');
+        let s = (recordTime % 60).toString().padStart(2, '0');
+        recordTimer.innerText = `${m}:${s}`;
+    }, 1000);
+}
+
+function stopRecording() {
+    isRecording = false;
+    clearInterval(recordInterval);
+    actionRecordBtn.classList.remove('recording');
+    recordingVisualizer.classList.remove('active');
+}
+
+function resetRecorder() {
+    stopRecording();
+    recordTime = 0;
+    recordTimer.innerText = "00:00";
+    currentPhotoBase64 = null;
+    photoPreviewContainer.classList.add('hidden');
+    photoPreview.src = '';
+    photoInput.value = '';
+}
+
+function finishRecording() {
+    stopRecording();
+    const date = new Date();
+    
+    // Attempt saving to localStorage gracefully if Base64 is too large
+    try {
+        const newCapsule = {
+            id: Date.now().toString(),
+            title: currentPhotoBase64 ? 'Sesli ve Görsel Anı' : 'Ses Anısı',
+            lat: userLocation ? userLocation.lat + (Math.random() - 0.5) * 0.001 : 0, 
+            lng: userLocation ? userLocation.lng + (Math.random() - 0.5) * 0.001 : 0,
+            date: date.toISOString(),
+            duration: recordTimer.innerText,
+            photo: currentPhotoBase64
+        };
+        
+        capsules.unshift(newCapsule);
+        localStorage.setItem('echoCapsules', JSON.stringify(capsules));
+    } catch(e) {
+        alert("Eklenti çok büyük olabilir (Örn: fotoğraf boyutu yüksek). Lütfen daha küçük bir fotoğraf deneyin.");
+        capsules.shift(); // revert
+    }
+    
+    setTimeout(() => {
+        hideModal(recordOverlay);
+        renderCapsulesList();
+        renderRadarPins();
+    }, 500);
+}
+
+// Rendering UI
+function renderCapsulesList() {
+    capsulesList.innerHTML = '';
+    if (capsules.length === 0) {
+        capsulesList.innerHTML = `<div class="empty-state">Henüz hiç kapsülün yok.<br>Kayıt veya fotoğraf eklemek için butona tıkla.</div>`;
+        return;
+    }
+
+    capsules.forEach(cap => {
+        const d = new Date(cap.date);
+        const item = document.createElement('div');
+        item.className = 'capsule-item';
+        // change icon color/type if photo exists
+        const iconClass = cap.photo ? 'fa-image' : 'fa-microphone-lines';
+        const colorClass = cap.photo ? 'has-photo' : '';
+
+        item.innerHTML = `
+            <div class="capsule-icon ${colorClass}">
+                <i class="fa-solid ${iconClass}"></i>
+            </div>
+            <div class="capsule-info">
+                <div class="capsule-title">${cap.title}</div>
+                <div class="capsule-meta">
+                    <span><i class="fa-regular fa-clock"></i> ${cap.duration}</span>
+                    <span>${d.toLocaleDateString('tr-TR')} ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}</span>
+                </div>
+            </div>
+        `;
+        capsulesList.appendChild(item);
+    });
+}
+
+function renderRadarPins() {
+    document.querySelectorAll('.capsule-pin').forEach(pin => pin.remove());
+    if (!userLocation) return;
+    capsules.forEach((cap) => {
+        const pin = document.createElement('div');
+        pin.className = 'capsule-pin';
+        const hash = Array.from(cap.id).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
+        const randSeed = Math.abs(hash);
+        const angle = (randSeed % 360) * (Math.PI / 180);
+        const distance = 20 + (randSeed % 80); 
+        const x = 125 + Math.cos(angle) * distance;
+        const y = 125 + Math.sin(angle) * distance;
+        pin.style.left = `${x}px`;
+        pin.style.top = `${y}px`;
+        // Make pins that have photos look slightly different (e.g. primary color)
+        if(cap.photo) {
+            pin.style.background = 'var(--accent-primary)';
+            pin.style.boxShadow = '0 0 10px var(--accent-primary)';
+        }
+        radarContainer.appendChild(pin);
+    });
+}
+
+// Discovery Simulation
+simDiscoverBtn.addEventListener('click', () => {
+    if(capsules.length === 0) {
+        alert('Simülasyon için önce bir kapsül veya fotoğraf kaydetmelisiniz!');
+        return;
+    }
+    
+    // Pick newest capsule
+    const cap = capsules[0];
+    const d = new Date(cap.date);
+    
+    discoveryText.innerHTML = `<strong>${d.toLocaleDateString('tr-TR')}</strong> tarihinde buraya bıraktığın anıya ulaştın. Kulaklığını tak ve geçmişe dön.`;
+    
+    if(cap.photo) {
+        discoveryPhoto.src = cap.photo;
+        discoveryPhoto.classList.remove('hidden');
+    } else {
+        discoveryPhoto.classList.add('hidden');
+        discoveryPhoto.src = "";
+    }
+    
+    if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    showModal(discoveryOverlay);
+    playDiscoveredBtn.classList.remove('playing');
+});
+
+simClearBtn.addEventListener('click', () => {
+    if(confirm('Tüm kapsüller silinecek. Emin misiniz?')) {
+        capsules = [];
+        localStorage.setItem('echoCapsules', JSON.stringify(capsules));
+        renderCapsulesList();
+        renderRadarPins();
+    }
+});
+
+closeDiscoveryBtn.addEventListener('click', () => hideModal(discoveryOverlay));
+playDiscoveredBtn.addEventListener('click', () => playDiscoveredBtn.classList.toggle('playing'));
+
+init();
+    </script>
+</body>
+</html>
